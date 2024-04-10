@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 open class BaseRepository {
     companion object{
-        const val BASE_URL = "https://rest.coinapi.io/v1/exchangerate"
+        const val BASE_URL = "https://rest.coinapi.io/v1/exchangerate/"
     }
 
     private val client: OkHttpClient by lazy {
