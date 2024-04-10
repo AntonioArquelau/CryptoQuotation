@@ -7,9 +7,10 @@ import retrofit2.http.Path
 
 interface CryptoAPI {
 
-    @GET("BTC/{currency}")
+    @GET("{main_currency}/{target_currency}")
     suspend fun getExchangeRate(
         @Header("X-CoinApi-key") key:String = "F11A11C0-5E03-A564-6B00-AF0B9884F0AF",
-        @Path("currency") currency: String
+        @Path("main_currency") mainCurrency: String? = "BTC",
+        @Path("target_currency") targetCurrency: String
     ) : Bitcoin
 }

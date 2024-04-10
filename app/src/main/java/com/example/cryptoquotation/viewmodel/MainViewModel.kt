@@ -23,12 +23,12 @@ class MainViewModel: ViewModel() {
     private val _rate = MediatorLiveData<DataStatus<Bitcoin>>()
     val rateLiveData: LiveData<DataStatus<Bitcoin>> = _rate.map { it }
 
-    fun getExchangeRate(currency: String) {
+    fun getExchangeRate(mainCurrency: String, targetCurrency: String) {
         viewModelScope.launch(Dispatchers.Main) {
             _rate.postValue(DataStatus.Loading())
             runCatching {
                 val response = withContext(Dispatchers.IO) {
-                    repository.getExchangeRate(currency)
+                    repository.getExchangeRate(mainCurrency = mainCurrency, targetCurrency = targetCurrency)
                 }
                 _rate.postValue(DataStatus.Success(response))
             }.onFailure {

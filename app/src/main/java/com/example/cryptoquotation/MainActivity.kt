@@ -52,36 +52,37 @@ class MainActivity : AppCompatActivity() {
         binding.floatingButton.setOnClickListener {
             showDialog("Testando")
         }
-        //viewModel.getExchangeRate("USD")
+        //viewModel.getExchangeRate("USD","JPY")
     }
 
     private fun setupSpinnerAdapter(){
+
         ArrayAdapter.createFromResource(
             this,
             R.array.currencies,
             android.R.layout.simple_spinner_item
         ).also {
-            adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinner.adapter = adapter
+                adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            dialogBinding.spinnerMain.adapter = adapter
+            dialogBinding.spinnerTarget.adapter = adapter
         }
 
-        binding.spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val itemSelected = binding.spinner.getItemAtPosition(position)
-                viewModel.getExchangeRate(itemSelected as String )
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-
-        }
+//        dialogBinding.spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+//
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                val itemSelected = binding.spinner.getItemAtPosition(position)
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        }
     }
 
     private fun setupDialog(){
@@ -91,9 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDialog(title: String) {
-
-
-       dialogBinding.tvTitle.text = title
+        dialogBinding.tvTitle.text = title
 
         dialogBinding.btnYes.setOnClickListener {
             dialog.dismiss()
@@ -102,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         dialogBinding.btnNo.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 
