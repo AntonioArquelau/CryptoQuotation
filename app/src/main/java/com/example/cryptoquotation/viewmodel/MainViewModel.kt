@@ -3,6 +3,7 @@ package com.example.cryptoquotation.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
@@ -20,22 +21,21 @@ class MainViewModel: ViewModel() {
         MainRepositoryImpl()
     }
 
-    private val _rate = MediatorLiveData<DataStatus<Bitcoin>>()
-    val rateLiveData: LiveData<DataStatus<Bitcoin>> = _rate.map { it }
-
-    fun getExchangeRate(mainCurrency: String, targetCurrency: String) {
+    fun getExchangeRate(mainCurrency: String, targetCurrency: String): LiveData<DataStatus<Bitcoin>> {
+        val data = MutableLiveData<DataStatus<Bitcoin>>()
         viewModelScope.launch(Dispatchers.Main) {
-            _rate.postValue(DataStatus.Loading())
+            data.postValue(DataStatus.Loading())
             runCatching {
                 val response = withContext(Dispatchers.IO) {
                     repository.getExchangeRate(mainCurrency = mainCurrency, targetCurrency = targetCurrency)
                 }
-                _rate.postValue(DataStatus.Success(response))
+                data.postValue(DataStatus.Success(response))
             }.onFailure {
-                _rate.postValue(it.message?.let { ex -> DataStatus.Error(null, ex) })
+                data.postValue(it.message?.let { ex -> DataStatus.Error(null, ex) })
             }.also {
 
             }
         }
+        return data
     }
 }

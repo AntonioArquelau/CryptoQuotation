@@ -9,6 +9,7 @@ import android.view.Window
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.GridLayout
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.cryptoquotation.databinding.ActivityMainBinding
 import com.example.cryptoquotation.databinding.DialogBinding
+import com.example.cryptoquotation.view.QuotationItem
+import com.example.cryptoquotation.view.QuotationListAdapter
 import com.example.cryptoquotation.viewmodel.MainViewModel
 import com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener
 
@@ -38,20 +41,23 @@ class MainActivity : AppCompatActivity() {
     private val dialog by lazy {
         Dialog(this)
     }
+    private val mainListAdapter by lazy {
+        QuotationListAdapter(viewModel)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
-        viewModel.rateLiveData.observe(this){
-            Log.d("###", "### rate $it.")
-        }
         setupSpinnerAdapter()
         setupDialog()
         binding.floatingButton.setOnClickListener {
             showDialog("Testando")
         }
+        binding.recyclerView.hasFixedSize()
+        //binding.recyclerView.layoutManager = GridLayout(this, 2)
+        binding.recyclerView.adapter = mainListAdapter
         //viewModel.getExchangeRate("USD","JPY")
     }
 
@@ -74,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 //                view: View?,
 //                position: Int,
 //                id: Long
-//            ) {
+//            ) {w  
 //                val itemSelected = binding.spinner.getItemAtPosition(position)
 //            }
 //
@@ -94,11 +100,17 @@ class MainActivity : AppCompatActivity() {
     private fun showDialog(title: String) {
         dialogBinding.tvTitle.text = title
 
-        dialogBinding.btnYes.setOnClickListener {
+        dialogBinding.btnAdd.setOnClickListener {
             dialog.dismiss()
+            val item = QuotationItem(
+                dialogBinding.spinnerMain.selectedItem.toString(),
+                dialogBinding.spinnerTarget.selectedItem.toString(),
+                ""
+            )
+            mainListAdapter.setData(item)
         }
 
-        dialogBinding.btnNo.setOnClickListener {
+        dialogBinding.btnCancel.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
