@@ -4,8 +4,10 @@ import android.app.Application
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cryptoquotation.databinding.QuotationItemBinding
+import com.example.cryptoquotation.repository.data.Bitcoin
 import com.example.cryptoquotation.repository.data.DataStatus
 import com.example.cryptoquotation.viewmodel.MainViewModel
 import java.lang.Appendable
@@ -40,13 +42,25 @@ class QuotationListAdapter(
         val item = itemList[position]
         holder.quotation.text = "${item.mainQuotation}/${item.targetQuotation}"
         holder.rate.text = item.rate
-        viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString()).observeForever{
-            when(it) {
-                is DataStatus.Success -> holder.rate.text = it.data?.rate
-                is DataStatus.Error -> Log.e("###", "###" + it.exception)
-                else -> holder.rate.text = "..."
+        val data = MutableLiveData<DataStatus<Bitcoin>>()
+        viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
+
+        data.observeForever {
+            when (it) {
+                is DataStatus.Success -> {
+                    holder.rate.text = it.data?.rate
+                    viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
+                }
+                is DataStatus.Error -> {
+                    Log.e("###", "###" + it.toString())
+                    viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
+                }
+                else -> {
+                    Log.d("###", "### Loading")
+                }
             }
         }
+
     }
 
     override fun getItemCount(): Int {

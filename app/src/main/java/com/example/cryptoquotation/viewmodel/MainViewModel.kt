@@ -7,22 +7,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.example.cryptoquotation.repository.FakeRepositoryImpl
 import com.example.cryptoquotation.repository.MainRepository
 import com.example.cryptoquotation.repository.MainRepositoryImpl
 import com.example.cryptoquotation.repository.data.Bitcoin
 import com.example.cryptoquotation.repository.data.DataStatus
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel: ViewModel() {
 
     private val repository: MainRepository by lazy {
-        MainRepositoryImpl()
+        FakeRepositoryImpl()
     }
 
-    fun getExchangeRate(mainCurrency: String, targetCurrency: String): LiveData<DataStatus<Bitcoin>> {
-        val data = MutableLiveData<DataStatus<Bitcoin>>()
+    fun getExchangeRate(
+        mainCurrency: String,
+        targetCurrency: String,
+        data: MutableLiveData<DataStatus<Bitcoin>>
+    ){
         viewModelScope.launch(Dispatchers.Main) {
             data.postValue(DataStatus.Loading())
             runCatching {
@@ -31,11 +36,11 @@ class MainViewModel: ViewModel() {
                 }
                 data.postValue(DataStatus.Success(response))
             }.onFailure {
+                Log.e("###", "###" + it.toString())
                 data.postValue(it.message?.let { ex -> DataStatus.Error(null, ex) })
             }.also {
 
             }
         }
-        return data
     }
 }
