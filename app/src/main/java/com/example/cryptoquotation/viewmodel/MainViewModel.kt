@@ -36,7 +36,6 @@ class MainViewModel: ViewModel() {
                 }
                 data.postValue(DataStatus.Success(response))
             }.onFailure {
-                Log.e("###", "###" + it.toString())
                 data.postValue(it.message?.let { ex -> DataStatus.Error(null, ex) })
             }.also {
 
