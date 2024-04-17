@@ -7,7 +7,8 @@ class FakeRepositoryImpl: MainRepository {
 
     private val previousRandomValue = mutableMapOf<String, Double>()
     override suspend fun getExchangeRate(mainCurrency: String?, targetCurrency: String): Bitcoin {
-        delay(1000)
+        val randomDelay = Math.random() * 1000
+        delay(randomDelay.toLong())
 
         val range = if (previousRandomValue.containsKey(mainCurrency+targetCurrency)) {
             getRandomRange(previousRandomValue[mainCurrency + targetCurrency])

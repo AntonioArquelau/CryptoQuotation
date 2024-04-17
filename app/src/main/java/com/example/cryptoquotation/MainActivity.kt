@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         Dialog(this)
     }
     private val mainListAdapter by lazy {
-        QuotationListAdapter(viewModel)
+        QuotationListAdapter(viewModel, this)
     }
 
 

@@ -1,11 +1,16 @@
 package com.example.cryptoquotation.view
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cryptoquotation.R
 import com.example.cryptoquotation.databinding.QuotationItemBinding
 import com.example.cryptoquotation.repository.data.Bitcoin
 import com.example.cryptoquotation.repository.data.DataStatus
@@ -14,7 +19,8 @@ import java.lang.Appendable
 import kotlin.coroutines.coroutineContext
 
 class QuotationListAdapter(
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
+    private val context: Context,
 ) : RecyclerView.Adapter<QuotationListAdapter.QuotationViewHolder>() {
 
     private val  itemList = mutableListOf<QuotationItem>()
@@ -22,7 +28,6 @@ class QuotationListAdapter(
 
     fun setData(item:  QuotationItem){
         itemList.add(item)
-        Log.d("###", "#### setData")
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(
@@ -38,7 +43,6 @@ class QuotationListAdapter(
     }
 
     override fun onBindViewHolder(holder: QuotationListAdapter.QuotationViewHolder, position: Int) {
-        Log.d("###", "#### onBindViewHolder")
         val item = itemList[position]
         holder.quotation.text = "${item.mainQuotation}/${item.targetQuotation}"
         holder.rate.text = item.rate
@@ -48,11 +52,27 @@ class QuotationListAdapter(
         data.observeForever {
             when (it) {
                 is DataStatus.Success -> {
+                    if (holder.rate.text.toString().isNotEmpty() && it.data?.rate?.isNotEmpty()!!) {
+                        if ((holder.rate.text.toString().toFloat()) > (it.data.rate.toFloat()!!)) {
+                            holder.imageView.setColorFilter(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.red
+                                )
+                            )
+                        } else {
+                            holder.imageView.setColorFilter(
+                                ContextCompat.getColor(
+                                    context,
+                                    R.color.green
+                                )
+                            )
+                        }
+                    }
                     holder.rate.text = it.data?.rate
                     viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
                 }
                 is DataStatus.Error -> {
-                    Log.e("###", "###" + it.toString())
                     viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
                 }
                 else -> {
@@ -72,6 +92,7 @@ class QuotationListAdapter(
         val view = itemView.root
         val quotation = itemView.coin
         val rate = itemView.rate
+        val imageView = itemView.resultImageView
     }
 
 }
