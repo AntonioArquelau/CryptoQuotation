@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val dialog by lazy {
-        Dialog(this)
+        Dialog(this, R.style.AlertDialogCustom)
     }
     private val mainListAdapter by lazy {
         QuotationListAdapter(viewModel, this)
@@ -53,12 +53,10 @@ class MainActivity : AppCompatActivity() {
         setupSpinnerAdapter()
         setupDialog()
         binding.floatingButton.setOnClickListener {
-            showDialog("Testando")
+            showDialog("Select a currency")
         }
         binding.recyclerView.hasFixedSize()
-        //binding.recyclerView.layoutManager = GridLayout(this, 2)
         binding.recyclerView.adapter = mainListAdapter
-        //viewModel.getExchangeRate("USD","JPY")
     }
 
     private fun setupSpinnerAdapter(){
@@ -66,29 +64,12 @@ class MainActivity : AppCompatActivity() {
         ArrayAdapter.createFromResource(
             this,
             R.array.currencies,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         ).also {
                 adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             dialogBinding.spinnerMain.adapter = adapter
             dialogBinding.spinnerTarget.adapter = adapter
         }
-
-//        dialogBinding.spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-//
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {w  
-//                val itemSelected = binding.spinner.getItemAtPosition(position)
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//
-//        }
     }
 
     private fun setupDialog(){

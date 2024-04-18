@@ -2,7 +2,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@drawable/rounded_layout"
+    style="@style/MaterialAlertDialog.Material3"
     android:padding="20dp"
     android:orientation="vertical">
 
@@ -14,8 +15,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16dp"
             android:text="Select a currency"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:id="@+id/spinner_linear_layout"
@@ -59,7 +61,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_main"
-            android:background="@android:color/white"
+            android:background="@drawable/rounded_button"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:clickable="true"
@@ -69,7 +71,7 @@
             android:id="@+id/btn_cancel"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:background="@drawable/rounded_button"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@id/btn_add"
             app:layout_constraintEnd_toEndOf="parent"
