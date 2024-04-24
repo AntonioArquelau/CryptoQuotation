@@ -1,3 +1,30 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    // Dialog Dimens
+    <dimen name="dialog_title_text_size">16dp</dimen>
+    <dimen name="dialog_constraint_layout_padding">16dp</dimen>
+    <dimen name="dialog_linear_layout_currency_margin">20dp</dimen>
+    <dimen name="spinner_item_view_padding">10dp</dimen>
+    <dimen name="spinner_item_view_margin_top">20dp</dimen>
+    <dimen name="dialog_button_width">100dp</dimen>
+    <dimen name="dialog_button_margin_top">20dp</dimen>
+    <dimen name="dialog_button_margin_end">20dp</dimen>
+
+    // Quotation item dimens
+    <dimen name="quotation_constraint_layout_width">70dp</dimen>
+    <dimen name="quotation_constraint_layout_margin_horizontal">30dp</dimen>
+    <dimen name="quotation_constraint_layout_margin_top">10</dimen>
+    <dimen name="quotation_shapeable_image_width">40dp</dimen>
+    <dimen name="quotation_shapeable_image_height">15dp</dimen>
+    <dimen name="quotation_shapeable_image_elevation">3dp</dimen>
+    <dimen name="quotation_shapeable_image_margin">5dp</dimen>
+    <dimen name="quotation_card_view_elevation">1dp</dimen>
+    <dimen name="quotation_card_view_corner_radius">10dp</dimen>
+    <dimen name="quotation_textview_margin_top">5dp</dimen>
+    <dimen name="quotation_textview_margin_start">10dp</dimen>
+    
+    // Main Activity dimens
+    <dimen name="floating_button_margin_top">20dp</dimen>
+    <dimen name="recycle_view_span_count">1</dimen>
 </resources>

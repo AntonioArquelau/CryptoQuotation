@@ -8,13 +8,14 @@ import java.util.concurrent.TimeUnit
 
 open class BaseRepository {
     companion object{
-        const val BASE_URL = "https://rest.coinapi.io/v1/exchangerate/"
+        private const val BASE_URL = "https://rest.coinapi.io/v1/exchangerate/"
+        private const val TIMEOUT = 50L
     }
 
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .connectTimeout(50L, TimeUnit.SECONDS)
-            .readTimeout(50L, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .build()
     }
 

@@ -1,64 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginHorizontal="30dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="@dimen/quotation_constraint_layout_width"
+    android:layout_marginHorizontal="@dimen/quotation_constraint_layout_margin_horizontal"
+    android:layout_marginTop="@dimen/quotation_constraint_layout_margin_top">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/result_image_view"
-        android:layout_width="40dp"
-        android:layout_height="15dp"
-        android:layout_margin="5dp"
-        app:srcCompat="@drawable/rounded_image"
+        android:layout_width="@dimen/quotation_shapeable_image_width"
+        android:layout_height="@dimen/quotation_shapeable_image_height"
+        android:layout_margin="@dimen/quotation_shapeable_image_margin"
+        android:elevation="@dimen/quotation_shapeable_image_elevation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="3dp">
-    </com.google.android.material.imageview.ShapeableImageView>
+        app:srcCompat="@drawable/rounded_image" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:elevation="1dp"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/light_gray"
+        android:elevation="@dimen/quotation_card_view_elevation"
+        app:cardCornerRadius="@dimen/quotation_card_view_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="@color/light_gray">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <TextView
-            android:id="@+id/coin"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:text="BTC/USD"
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/card_view">
-        </TextView>
 
-        <TextView
-            android:id="@+id/rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0.0"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coin"></TextView>
+            <TextView
+                android:id="@+id/coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/quotation_textview_margin_start"
+                android:layout_marginTop="@dimen/quotation_textview_margin_top"
+                android:text="BTC/USD"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/card_view" />
 
-
-
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/quotation_textview_margin_start"
+                android:layout_marginTop="@dimen/quotation_textview_margin_top"
+                android:text="0.0"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coin" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

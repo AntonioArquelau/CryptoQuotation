@@ -1,83 +1,82 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MaterialAlertDialog.Material3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_layout"
-    style="@style/MaterialAlertDialog.Material3"
-    android:padding="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/dialog_constraint_layout_padding">
 
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select a currency"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dialog_title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="16dp"
-            android:text="Select a currency"
-            android:textColor="@color/white" />
+    <LinearLayout
+        android:id="@+id/spinner_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dialog_linear_layout_currency_margin"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-        <LinearLayout
-            android:id="@+id/spinner_linear_layout"
+        <Spinner
+            android:id="@+id/spinner_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginEnd="@dimen/spinner_item_view_margin_top"
+            android:padding="@dimen/spinner_item_view_padding"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal">
-                <Spinner
-                    android:id="@+id/spinner_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
 
-                <Spinner
-                    android:id="@+id/spinner_target"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    app:layout_constraintStart_toEndOf="@id/spinner_main"
-                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                     />
-        </LinearLayout>
-
-        <LinearLayout
+        <Spinner
+            android:id="@+id/spinner_target"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_linear_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal">
+            android:padding="@dimen/spinner_item_view_padding"
+            app:layout_constraintStart_toEndOf="@id/spinner_main"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinner_linear_layout">
+
         <Button
             android:id="@+id/btn_add"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dialog_button_width"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_main"
+            android:layout_marginTop="@dimen/dialog_button_margin_top"
+            android:layout_marginEnd="@dimen/dialog_button_margin_end"
             android:background="@drawable/rounded_button"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:clickable="true"
-            android:text="Add" />
+            android:text="Add"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinner_main" />
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/dialog_button_width"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_button_margin_top"
             android:background="@drawable/rounded_button"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toEndOf="@id/btn_add"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_target"
             android:clickable="true"
-            android:text="Cancel" />
-        </LinearLayout>
-
+            android:text="Cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_add"
+            app:layout_constraintTop_toBottomOf="@id/spinner_target" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         setupSpinnerAdapter()
         setupDialog()
         binding.floatingButton.setOnClickListener {
-            showDialog("Select a currency")
+            showDialog(getString(R.string.dialog_title))
         }
         binding.recyclerView.hasFixedSize()
         binding.recyclerView.adapter = mainListAdapter
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             val item = QuotationItem(
                 dialogBinding.spinnerMain.selectedItem.toString(),
                 dialogBinding.spinnerTarget.selectedItem.toString(),
-                ""
+                getString(R.string.item_rate)
             )
             mainListAdapter.setData(item)
         }

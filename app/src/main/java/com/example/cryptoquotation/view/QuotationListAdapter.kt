@@ -23,6 +23,10 @@ class QuotationListAdapter(
     private val context: Context,
 ) : RecyclerView.Adapter<QuotationListAdapter.QuotationViewHolder>() {
 
+    companion object{
+        private const val TAG = "QuotationListAdapter"
+    }
+
     private val  itemList = mutableListOf<QuotationItem>()
 
 
@@ -76,7 +80,7 @@ class QuotationListAdapter(
                     viewModel.getExchangeRate(item.mainQuotation.toString(), item.targetQuotation.toString(), data)
                 }
                 else -> {
-                    Log.d("###", "### Loading")
+                    Log.d(TAG, "Loading...")
                 }
             }
         }

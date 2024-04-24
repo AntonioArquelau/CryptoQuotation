@@ -5,15 +5,21 @@ import kotlinx.coroutines.delay
 
 class FakeRepositoryImpl: MainRepository {
 
+    companion object{
+        private const val SEED = 1000.0
+        private const val DEFAULT_SEED = 0.0
+        private const val OFFSET = 10
+    }
+
     private val previousRandomValue = mutableMapOf<String, Double>()
     override suspend fun getExchangeRate(mainCurrency: String?, targetCurrency: String): Bitcoin {
-        val randomDelay = Math.random() * 1000
+        val randomDelay = Math.random() * SEED
         delay(randomDelay.toLong())
 
         val range = if (previousRandomValue.containsKey(mainCurrency+targetCurrency)) {
             getRandomRange(previousRandomValue[mainCurrency + targetCurrency])
         } else{
-            previousRandomValue[mainCurrency + targetCurrency] = Math.random() * 1000.0
+            previousRandomValue[mainCurrency + targetCurrency] = Math.random() * SEED
             getRandomRange(previousRandomValue[mainCurrency + targetCurrency])
         }
 
@@ -29,9 +35,9 @@ class FakeRepositoryImpl: MainRepository {
 
     private fun getRandomRange(previousValue: Double?): Pair<Double, Double> {
         var seed = previousValue!!
-        if (seed == 0.0) {
-            seed = 1000.0
+        if (seed == DEFAULT_SEED) {
+            seed = SEED
         }
-        return Pair(seed - 10, seed + 10)
+        return Pair(seed - OFFSET, seed + OFFSET)
     }
 }
